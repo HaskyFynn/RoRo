@@ -1,0 +1,15 @@
+{
+  "source_repository": "https://github.com/denizkarya1999/RoEmotion",
+  "source_revision": "06221e23ea8d24df7656069b3ec3d3974019e62d",
+  "model_file": "RoEmotion_LED_Recognition_Model_YOLOv26n.tflite",
+  "model_source_path": "RoEmotion/app/src/main/assets/RoEmotion_LED_Recognition_Model_YOLOv26n.tflite",
+  "size_bytes": 9929091,
+  "sha256": "c2d6109d8b1c795ddac2112b38c449a1dd1371c6c6d9553f111c43edd6f01018",
+  "input": "float32 [1,3,960,960], RGB / 255, centered 114 letterbox",
+  "output": "float32 [1,300,6], xyxy score class",
+  "labels": ["ook_10101", "ook_01110", "ook_00110"],
+  "receiver_source_path": "RoEmotion/app/src/main/java/com/developer27/xemotion/inference/YoloLedDetection.kt",
+  "camera_source_path": "RoEmotion/app/src/main/java/com/developer27/xemotion/camera/CameraExposureController.kt",
+  "firmware_source_path": "Arduino/RoEmotion_Wristband_Arduino_User_{1,2,3}/",
+  "rights": "Upstream license not found in inspected root; confirm redistribution terms with owner."
+}

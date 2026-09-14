@@ -1,4 +1,10 @@
+.venv/
 __pycache__/
 *.pyc
-.venv/
 runs/
+demo_runs/
+snapshots/
+targets/
+local_setup.json
+verification-artifacts/
+*.tmp

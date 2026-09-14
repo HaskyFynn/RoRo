@@ -1,0 +1,11 @@
+# One-Day Execution
+
+- [ ] 00:00-00:30 Install; open camera; place an existing QR in the scene; label the three physical transmitters; save setup. Use original firmware first.
+- [ ] 00:30-01:00 Confirm manual exposure changes while gain, lighting and geometry stay fixed. Check actual frame size, QR baseline decode, and individual tag predictions on this webcam. Save a setup photo separately. If tags cannot be recognized at the planned distance, resolve stripe size/model compatibility before the main trials.
+- [ ] 01:00-02:00 Scene experiment: readable baseline + 4 shorter supported exposures, 45 seconds x 3 each. Check the pilot yields at least 30 analyzed samples and adjust the fixed duration if necessary. Keep the same QR crop, known tag region, and threshold. Record LED-off controls. Save control readback and intended exposure separately; do not label an uncalibrated control as measured seconds.
+- [ ] 02:00-02:20 Open reports. Look for declining QR recovery with retained tag ID; enhancement may restore QR recovery. If both fail together, record that outcome and do not invent a useful operating range.
+- [ ] 02:20-04:00 Multi-user experiment: three single users, three pairs, all three, 45 seconds x 3 each at one practical geometry. Keep motion within labelled regions. Swap positions between repetitions and redraw regions. Add a second distance only after completing this core set.
+- [ ] 04:00-04:30 Check errors, missing samples, achieved analysis rates and interruptions. Repeat invalid runs under a new repetition identifier; retain the original with an explanatory note outside its immutable log.
+- [ ] 04:30-05:00 Build comparison; back up the whole runs folder. Select representative systematic snapshots and note exact run/sample IDs. Keep dark images unmodified in the main comparison; label any contrast-enhanced illustration explicitly.
+
+Produce: (1) QR recovery and tag-ID rates versus exposure, showing repetitions; (2) multi-user correct/miss/wrong-ID table and a confusion table; (3) matched full frames and same-scale QR/tag crops at baseline and short exposure; (4) a three-user annotated frame. Automatic reports supply run tables, timeline plots, comparison PNG/PDF and snapshot sources; finalize matched-condition publication plots only after checking physical exposure calibration.

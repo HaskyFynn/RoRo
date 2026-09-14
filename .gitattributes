@@ -1,0 +1,6 @@
+* text=auto eol=lf
+firmware/original/** -text
+reference/** -text
+*.png binary
+*.pdf binary
+*.tflite binary
