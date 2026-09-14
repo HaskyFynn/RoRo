@@ -4,20 +4,21 @@ Standalone webcam console for **scene suppression** and **simultaneous tag ident
 
 ## Start
 
-On Windows with Python 3.11-3.13 installed, double-click **install.cmd** once, then **launch.cmd**. The installer checks the model and QR asset. For another OS, create a virtual environment, install `requirements.txt`, then run `python app.py` (Tk must be installed).
+On Windows with Python 3.11-3.13 installed, double-click **install.cmd** once, then **launch.cmd**. The installer checks the bundled model and QR asset. For another OS, create a virtual environment, install `requirements.txt`, then run `python roemotion_pc_tool.py` (Tk must be installed).
 
-1. **Camera:** choose camera index, resolution and frame rate; Connect. Enter manual controls supported by the camera; Apply and inspect the returned values. A blank control leaves that setting alone.
-2. **Regions:** select QR and drag around the existing scene QR, including its white border. At a readable baseline, click **Use currently read QR value** (or enter its known value). Select each present User and draw its wrist-motion region. Regions must not overlap; each physical tag stays within its own region throughout a run.
-3. **Run / Notes:** choose experiment, expected users, condition, repetition, duration and setup details. Check baseline QR decoding and each physical tag's identity. Tick **Setup / baseline checked**, then **Start run**.
-4. **Open report** after the run. **Snapshot** saves the latest analyzed frame. **Build comparison** creates `runs/index.html` and a summary CSV with every repetition separate.
+1. **Camera:** run `launch.cmd`. The default camera is index 0; use `launch.cmd --camera 1` if needed.
+2. **Exposure/gain:** enter the intended exposure label, camera exposure value, intended ISO/gain label and camera gain value, then click **Apply Camera Settings**. Blank values leave that camera control alone. The app logs camera readback values separately from the intended labels.
+3. **Scene QR:** place an existing QR code in view and enter its expected payload. The integrated reader logs QR detection and exact payload match while exposure changes.
+4. **Tags:** select the expected users. The bundled YOLO/TFLite receiver is enabled by default and classifies the visible rolling-shutter/OOK tag pattern as `User_1`, `User_2`, or `User_3`.
+5. **Run:** choose duration, sampling interval and condition, then click **Start Timed Run**. Use **Snapshot** for figure frames.
 
 Use any existing QR that the integrated reader can decode at baseline. The GUI displays the decoded value and logs exact matches as camera settings change. Keep that physical QR, its size and location fixed within an exposure sweep. There is no QR-generation step.
 
-Exposure/gain/focus controls, frame rate/resolution, detector confidence, green threshold, QR region, wearer regions, sample rate, duration, snapshot interval and condition notes are adjustable before recording. The 9.9 MB model retains its trained input size; changing its architecture would require a separately validated model.
+Exposure/gain controls, detector confidence, green threshold, expected users, QR payload, duration, sampling interval and condition notes are adjustable before recording. The 9.9 MB model retains its trained input size; changing its architecture would require a separately validated model.
 
-The live image shows ground-truth regions. Predictions in the preview readout and saved annotations come from fresh analyzed frames. Settings remain fixed during runs. **Save setup / Load setup** retains camera entries and regions between sessions; loading does not apply camera controls.
+The default console is intentionally simple and fast for experiments. `app.py` remains in the repository as the more structured region/reporting console, but `launch.cmd` opens `roemotion_pc_tool.py`.
 
-To rehearse without hardware, run `launch.cmd --demo`. Demo outputs go to `demo_runs/` and carry a demo status. `--qr-only` allows QR pilots but disables multi-user runs and reports identification as unavailable. The tag model is bundled and enabled by default; `--yolo` is accepted as a compatibility flag, and `--model-path PATH` is only needed if someone deliberately keeps the `.tflite` file outside `models/`.
+`--qr-only` allows QR/blob pilots but disables YOLO tag IDs. The tag model is bundled and enabled by default; `--yolo` is accepted as a compatibility flag, and `--model-path PATH` is only needed if someone deliberately keeps the `.tflite` file outside `models/`.
 
 ## Quick Experiments
 
@@ -33,7 +34,7 @@ Primary outputs: per-user correct, missed and wrong ID rates; all users correct 
 
 ## Outputs
 
-Each run contains `metadata.json`, durable `samples.jsonl`, flat `samples.csv`, `completion.json`, `summary.json`, `report.html`, and a timeline in PNG/PDF. `snapshots/` holds systematic interval samples and manual selections: unmodified full-resolution PNG, annotated PNG, QR/tag crops, and a JSON sidecar with settings, predictions and timestamps. "Raw PNG" means unmodified decoded camera pixels, not sensor RAW. All reports use rates in **0..1**; the GUI displays percentages.
+Each simple-console run contains `metadata.json`, `log.csv`, saved sampled frames, snapshots and `session_summary.json`. The advanced console additionally produces JSONL/HTML reports and plots. All saved observations include intended exposure labels, camera exposure readback, intended ISO/gain label, camera gain readback, QR payload status, LED blob diagnostics and YOLO user detections.
 
 Rebuild after interruption or on another PC: `python reporting.py runs`. All necessary observations are in each run folder. No unrecorded or reused prediction enters the denominator. Interrupted runs remain labelled. For paper statistics, use repetitions as the independent units; do not treat neighboring video frames as independent participants.
 
@@ -46,7 +47,7 @@ Rebuild after interruption or on another PC: `python reporting.py runs`. All nec
 
 ## Repository Contents
 
-`app.py` GUI/capture; `core.py` detector/metrics; `reporting.py` reports; `assets/` static software-test/demo images; `firmware/original/` unchanged upstream sketches; `firmware/RoEmotionTransmitter/` configurable equivalent; `reference/` Android receiver/exposure source; `models/` actual model bytes and provenance.
+`roemotion_pc_tool.py` simple default GUI; `app.py` advanced GUI/capture; `core.py` detector/metrics; `reporting.py` reports; `assets/` static software-test/demo images; `firmware/original/` unchanged upstream sketches; `firmware/RoEmotionTransmitter/` configurable equivalent; `reference/` Android receiver/exposure source; `models/` actual model bytes and provenance.
 
 Run software checks with `python check_install.py` and `python -m unittest discover -s tests -v`. See [verification record](docs/VERIFICATION.md) for what was actually tested.
 
